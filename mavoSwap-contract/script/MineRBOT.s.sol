@@ -4,16 +4,16 @@ pragma solidity ^0.8.28;
 import "forge-std/Script.sol";
 import "../src/MockERC20.sol";
 
-contract MineRHYPE is Script {
+contract MineRBOT is Script {
     // HYPE token address on elysium is 
     function run() external {
-        bytes32 salt = vm.envBytes32("RHYPE_SALT");
+        bytes32 salt = vm.envBytes32("RBOT_SALT");
 
         vm.startBroadcast();
 
-        MockERC20 rHYPE = new MockERC20{salt: salt}(
-            "rHYPE",
-            "rHYPE",
+        MockERC20 rBOT = new MockERC20{salt: salt}(
+            "rBOT",
+            "rBOT",
             18,
             10_000_000_000 * 10 ** 18,
             vm.envAddress("ADDRESS_TO_MINT_TO")
@@ -21,18 +21,18 @@ contract MineRHYPE is Script {
 
         vm.stopBroadcast();
 
-        console.log("rHYPE deployed at:", address(rHYPE));
+        console.log("rBOT deployed at:", address(rBOT));
     }
 
     // Run this offline first to find the salt:
-    // forge script script/MineRHYPE.s.sol --sig "mine()" --rpc-url sepolia
+    // forge script script/MineRBOT.s.sol --sig "mine()" --rpc-url sepolia
     function mine() external view {
         address deployer = msg.sender;
         bytes32 initCodeHash = hashInitCode(
             type(MockERC20).creationCode,
             abi.encode(
-                "rHYPE",
-                "rHYPE",
+                "rBOT",
+                "rBOT",
                 uint8(18),
                 uint256(10_000_000_000 * 10 ** 18),
                 vm.envAddress("ADDRESS_TO_MINT_TO")

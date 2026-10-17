@@ -3,19 +3,21 @@ import { WagmiProvider, http } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createAppKit } from '@reown/appkit/react';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { elysiumTestnet } from '@/lib/chains';
+import { botchainMainnet, elysiumTestnet } from '@/lib/chains';
+import { ActiveChainProvider } from '@/context/ActiveChainContext';
 
 const projectId =
   import.meta.env.VITE_WALLETCONNECT_PROJECT_ID ||
   import.meta.env.VITE_REOWN_PROJECT_ID ||
   '';
 
-// Create Wagmi Adapter
+// Create Wagmi Adapter with BotChain Mainnet and Elysium Testnet
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  networks: [elysiumTestnet],
+  networks: [botchainMainnet, elysiumTestnet],
   ssr: true,
   transports: {
+    [botchainMainnet.id]: http(),
     [elysiumTestnet.id]: http(),
   }
 });
@@ -23,14 +25,15 @@ export const wagmiAdapter = new WagmiAdapter({
 // Export underlying Wagmi config
 export const config = wagmiAdapter.wagmiConfig;
 
-// Initialize AppKit
+// Initialize AppKit with both networks
 createAppKit({
   adapters: [wagmiAdapter],
-  networks: [elysiumTestnet],
+  networks: [botchainMainnet, elysiumTestnet],
+  defaultNetwork: botchainMainnet,
   projectId,
   metadata: {
     name: 'MetaSwap Protocol',
-    description: 'The univ4 DEX on Elysium',
+    description: 'The univ4 DEX on BotChain & Elysium',
     url: 'https://metaswap.com',
     icons: ['https://avatars.githubusercontent.com/u/179229932'],
   },
@@ -72,7 +75,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        {children}
+        <ActiveChainProvider>
+          {children}
+        </ActiveChainProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

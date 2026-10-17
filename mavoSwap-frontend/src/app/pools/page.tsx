@@ -3,10 +3,11 @@ import { Search, Plus } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { request } from 'graphql-request';
-import { GET_POOLS, GET_GLOBAL_DATA, SUBGRAPH_ENDPOINT } from '../../lib/queries';
+import { GET_POOLS, GET_GLOBAL_DATA } from '../../lib/queries';
 import { TOKENS } from '../../config/tokens';
 import { redis } from '../../lib/redis';
 import TokenImage from '../../components/TokenImage';
+import { useActiveChain } from '@/context/ActiveChainContext';
 
 const formatLargeCurrency = (val: string | number | undefined) => {
   if (val === undefined || val === null || isNaN(Number(val))) return '$0.00';

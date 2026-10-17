@@ -1,22 +1,562 @@
-ADDRESS_TO_MINT_TO=0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9
+deployments.txt
+
+ADDRESS_TO_MINT_TO=0x198adc951818792BeBC45368391C93Fabe8F2a13
 
 
-HYPE=0x0000000000000000000000000000000000000000
-USDC=0x7D29d8047B905000459c0E80c34a26CeedcB47b2
-RHYPE=0x0026de59CF2cD3a581897366DCA1aFa33C6CE312
-RUSDC=0x7dD76b622AF7eE379326374513E17934246C3c98
+BOT=0x0000000000000000000000000000000000000000
+USDT=0xaBabc7Ddc03e501d190C676BF3d92ef0e6e87a3C
+RBOT=0x0022e57d97A5976A9877c7127068A4A26BBbD39C
+RUSDT=0xaB74155663ed19395B2c81b4197E4F714629A42c
 
-POOLMANAGER_ADDRESS=0x383f1aef5282754Fc48578E1dA834dC01223F75F
-V4_QUOTER_ADDRESS=0x34F0CAdb9Be160DEc8dB4479A73122968Ca890C8
-PERMIT2_ADDRESS=0xcf3C40142ff5C31b71c59f5191AAe26093742F2a
-POSITION_DESCRIPTOR=
-WETH_ADDRESS=0x57C544AAcfBa98b299361C47DDAe391720Ba4aec
-POSITION_MANAGER_ADDRESS=0x7d00dB5115Db5e02ef0550E51BB459F7c72e5999
+POOLMANAGER_ADDRESS=0x38F0520f45894020adB79591A1949D3aAFb3921d
+V4_QUOTER_ADDRESS=0xb05b48a914507E17FD955851DFaE02B24ad4E207
+PERMIT2_ADDRESS=0x1aB7a432b6FD491597c6D3C6590221993561C103
+POSITION_DESCRIPTOR=0x62C6B01286f1aCD9EE01D6bEee4B3D8002424634
+WETH_ADDRESS=0xA785dEEfF31941AF1802408943bfB347087602Cd
+POSITION_MANAGER_ADDRESS=0xaeC83eb392c67432022362C3dddA59cefFB0898B
 
 
-STATEVIEW_ADDRESS=0x5EFc49235E5a61ee84ccD97ca5109F997aFb5959
+STATEVIEW_ADDRESS=0x412818d374C12Bb9374723D2065Bde75C445c9e5
 
-UNIVERSALROUTER_ADDRESS=0x38d1FeCCef299Bba6B826e9cE5B628c817DB03c5
+UNIVERSALROUTER_ADDRESS=0x8850386bBc1B5A7539eD34b6cEBDAcEf7c226230
 
-RHYPE_SALT=0x000000000000000000000000000000000000000000000000000000000000003b
-RUSDC_SALT=0x0000000000000000000000000000000000000000000000000000000000000132
+RBOT_SALT=0x0000000000000000000000000000000000000000000000000000000000000059
+RUSDT_SALT=0x000000000000000000000000000000000000000000000000000000000000009d
+
+
+
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployQuoter.s.sol \
+  --rpc-url elysium_testnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+^C
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployQuoter.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠆] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Return ==
+quoter: contract V4Quoter 0xb05b48a914507E17FD955851DFaE02B24ad4E207
+
+== Logs ==
+  Deploying V4Quoter with PoolManager at: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  V4Quoter deployed at: 0xb05b48a914507E17FD955851DFaE02B24ad4E207
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 1283124
+
+Estimated amount required: 0.02566248 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x39ccf8b25b88467c995eaf459c3afa8d383e1aae1915a359971c8fb93370b506
+Contract: V4Quoter
+Contract Address: 0xb05b48a914507E17FD955851DFaE02B24ad4E207
+Block: 27004400
+Paid: 0.01974038 ETH (987019 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.01974038 ETH (987019 gas * avg 20 gwei)
+                                                                                                                                                          
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/DeployQuoter.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/DeployQuoter.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployPermit2.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠔] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Return ==
+permit2: contract Permit2 0x1aB7a432b6FD491597c6D3C6590221993561C103
+
+== Logs ==
+  Deploying Permit2
+  Permit2 deployed at: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 2039885
+
+Estimated amount required: 0.0407977 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x82a43aa4de3497e01d00cf7f12b80bc21a4f3ab81878eea226aee51a53ddfa70
+Contract: Permit2
+Contract Address: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+Block: 27005072
+Paid: 0.03138286 ETH (1569143 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.03138286 ETH (1569143 gas * avg 20 gwei)
+                                                                                                                                                          
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/DeployPermit2.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/DeployPermit2.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployPositionManager.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠰] Compiling...
+[⠰] Compiling 1 files with Solc 0.8.26
+[⠒] Solc 0.8.26 finished in 85.14s
+Compiler run successful!
+Script ran successfully.
+
+== Logs ==
+  PoolManager: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  Permit2: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+  WETH deployed at: 0xA785dEEfF31941AF1802408943bfB347087602Cd
+  PositionDescriptor deployed at: 0x62C6B01286f1aCD9EE01D6bEee4B3D8002424634
+  PositionManager deployed at: 0x8005598Ef3B68E0c4108851F674d7cD42b08D19C
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 13548869
+
+Estimated amount required: 0.27097738 ETH
+
+==========================
+Enter keystore password:
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/DeployPositionManager.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/DeployPositionManager.s.sol/677/run-latest.json
+
+Error: Failed to decrypt keystore: incorrect password
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ https://scan.botchain.ai/address/0x198adc951818792BeBC45368391C93Fabe8F2a1;;
+bash: syntax error near unexpected token `;;'
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployPositionManager.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠰] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  PoolManager: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  Permit2: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+  WETH deployed at: 0xA785dEEfF31941AF1802408943bfB347087602Cd
+  PositionDescriptor deployed at: 0x62C6B01286f1aCD9EE01D6bEee4B3D8002424634
+  PositionManager deployed at: 0x8005598Ef3B68E0c4108851F674d7cD42b08D19C
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 13548869
+
+Estimated amount required: 0.27097738 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x8af4e289c3e242e18412aa92520d12d7c65a777ca425bb433fb34ed41666ca3d
+Contract: WETH
+Contract Address: 0xA785dEEfF31941AF1802408943bfB347087602Cd
+Block: 27005862
+Paid: 0.01456266 ETH (728133 gas * 20 gwei)
+
+
+##### 677
+✅  [Success] Hash: 0xdc022050f4d9ec128dd39f3ca675d0ef732394bed61fe1828f1563dec2cee207
+Contract: PositionDescriptor
+Contract Address: 0x62C6B01286f1aCD9EE01D6bEee4B3D8002424634
+Block: 27005865
+Paid: 0.1059352 ETH (5296760 gas * 20 gwei)
+
+⠂ Sequence #1 on 677 | Waiting for pending transactions
+    ⡀ [Pending] 0x4d3f2d6c30552a7cd18a58e84a31604a67c2c11af0137029e859d62a2ac16cd0
+    ⠉ [00:03:53] [#######################################################################################################################] 3/3 txes (0.0s)
+    ⠉ [00:03:53] [##################################################################>---------------------------------] 2/3 receipts (2865986902393696.5s)^C
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployPositionManager.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠒] Compiling...
+[⠊] Compiling 1 files with Solc 0.8.26
+[⠢] Solc 0.8.26 finished in 57.48s
+Compiler run successful!
+Script ran successfully.
+
+== Logs ==
+  PoolManager: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  Permit2: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+  PositionManager deployed at: 0xaeC83eb392c67432022362C3dddA59cefFB0898B
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 5716509
+
+Estimated amount required: 0.11433018 ETH
+
+==========================
+Enter keystore password:
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ https://scan.botchain.ai/address/0x198adc951818792BeBC45368391C93Fabe8F2a1^C
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployPositionManager.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠰] Compiling...
+[⠆] Compiling 1 files with Solc 0.8.26
+[⠔] Solc 0.8.26 finished in 53.99s
+Compiler run successful!
+Script ran successfully.
+
+== Logs ==
+  PoolManager: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  Permit2: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+  PositionManager deployed at: 0xaeC83eb392c67432022362C3dddA59cefFB0898B
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 5716509
+
+Estimated amount required: 0.11433018 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0xa52cff9754cff16a4b7efd078b0dac0fc2ddd4557eee8102ef209196fe5f71d2
+Contract: PositionManager
+Contract Address: 0xaeC83eb392c67432022362C3dddA59cefFB0898B
+Block: 27007164
+Paid: 0.0879463 ETH (4397315 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.0879463 ETH (4397315 gas * avg 20 gwei)
+                                                                                                                                                          
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/DeployPositionManager.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/DeployPositionManager.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployStateView.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠰] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Return ==
+stateView: contract StateView 0x412818d374C12Bb9374723D2065Bde75C445c9e5
+
+== Logs ==
+  Deploying StateView with PoolManager at: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  StateView deployed at: 0x412818d374C12Bb9374723D2065Bde75C445c9e5
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 839260
+
+Estimated amount required: 0.0167852 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x2396c3b70c3de6c505cdb9be9ac704997dc1846b685c0ce4d4f88b9fdb715d85
+Contract: StateView
+Contract Address: 0x412818d374C12Bb9374723D2065Bde75C445c9e5
+Block: 27007317
+Paid: 0.0129117 ETH (645585 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.0129117 ETH (645585 gas * avg 20 gwei)
+                                                                                                                                                          
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/DeployStateView.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/DeployStateView.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/DeployUniversalRouter.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠒] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  Permit2: 0x1aB7a432b6FD491597c6D3C6590221993561C103
+  WETH: 0xA785dEEfF31941AF1802408943bfB347087602Cd
+  PoolManager: 0x38F0520f45894020adB79591A1949D3aAFb3921d
+  PositionManager: 0xaeC83eb392c67432022362C3dddA59cefFB0898B
+  UniversalRouter deployed at: 0x8850386bBc1B5A7539eD34b6cEBDAcEf7c226230
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 6375762
+
+Estimated amount required: 0.12751524 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x50f2d21ff6f40bd3d734f64246750371cc0053fc7c7d4f7c7556b6c3a3d26fd7
+Contract: UniversalRouter
+Contract Address: 0x8850386bBc1B5A7539eD34b6cEBDAcEf7c226230
+Block: 27007647
+Paid: 0.09808866 ETH (4904433 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.09808866 ETH (4904433 gas * avg 20 gwei)
+                                                                                                                                            
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/DeployUniversalRouter.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/DeployUniversalRouter.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/MineRBOT.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast^C
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/MineRBOT.s.sol \
+  --sig "mine()" \
+  --rpc-url botchain_mainnet \
+  --account botchain1
+Enter keystore password:
+[⠑] Compiling...
+[⠢] Compiling 1 files with Solc 0.8.35
+[⠆] Solc 0.8.35 finished in 4.40s
+Compiler run successful!
+Warning: Detected artifacts built from source files that no longer exist. Run `forge clean` to make sure builds are in sync with project files.
+ - /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/script/MineRHYPE.s.sol
+ - /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/script/MineRUSDC.s.sol
+Script ran successfully.
+
+== Logs ==
+  Mining for 0x00 prefix...
+  Deployer: 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38
+  Salt found: 0x0000000000000000000000000000000000000000000000000000000000000059
+  Address:   0x0022e57d97A5976A9877c7127068A4A26BBbD39C
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge clean
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge compile
+Warning: Failed to get git revision for dependency 'lib/forge-std'
+[⠆] Compiling...
+[⠰] Compiling 30 files with Solc 0.8.17
+[⠔] Compiling 101 files with Solc 0.8.35
+[⠒] Compiling 220 files with Solc 0.8.26
+[⠃] Solc 0.8.35 finished in 36.56s
+[⠘] Solc 0.8.17 finished in 42.30s
+[⠢] Solc 0.8.26 finished in 226.44s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> test/PointsHookTest.sol:150:5:
+    |
+150 |     function test_points_areIsolated_perPool() public {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/MineRBOT.s.sol \
+  --sig "mine()" \
+  --rpc-url botchain_mainnet \
+  --account botchain1
+Enter keystore password:
+[⠰] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  Mining for 0x00 prefix...
+  Deployer: 0x198adc951818792BeBC45368391C93Fabe8F2a13
+  Salt found: 0x0000000000000000000000000000000000000000000000000000000000000059
+  Address:   0x0022e57d97A5976A9877c7127068A4A26BBbD39C
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ echo "RBOT_SALT=0x0000000000000000000000000000000000000000000000000000000000000059" >> .env
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/MineRBOT.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠆] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  rBOT deployed at: 0x0022e57d97A5976A9877c7127068A4A26BBbD39C
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 847107
+
+Estimated amount required: 0.01694214 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x48b19256d70d391bad3adb68fa6bab3870042a391fc20f8b91d1d7a0e6c274a6
+Contract: MockERC20
+Block: 27009202
+Paid: 0.01158438 ETH (579219 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.01158438 ETH (579219 gas * avg 20 gwei)
+                                                                                                                                            
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/MineRBOT.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/MineRBOT.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/MineRUSDT.s.sol \
+  --sig "mine()" \
+  --rpc-url botchain_mainnet \
+  --account botchain1
+Enter keystore password:
+[⠆] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  Mining for 0x7D prefix...
+  Deployer: 0x198adc951818792BeBC45368391C93Fabe8F2a13
+  Salt found: 0x000000000000000000000000000000000000000000000000000000000000009d
+  Address:   0xaB74155663ed19395B2c81b4197E4F714629A42c
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ echo "RUSDT_SALT=0x000000000000000000000000000000000000000000000000000000000000009d" >> .env
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ forge script script/MineRUSDT.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
+  --broadcast
+[⠔] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  rUSDT deployed at: 0xaB74155663ed19395B2c81b4197E4F714629A42c
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 677
+
+Estimated gas price: 20 gwei
+
+Estimated total gas used for script: 847072
+
+Estimated amount required: 0.01694144 ETH
+
+==========================
+Enter keystore password:
+
+##### 677
+✅  [Success] Hash: 0x5f7a3b26349f92939395b1649a33625305487fcc4ae9e3326d533e20f555c70b
+Contract: MockERC20
+Block: 27009457
+Paid: 0.0115839 ETH (579195 gas * 20 gwei)
+
+✅ Sequence #1 on 677 | Total Paid: 0.0115839 ETH (579195 gas * avg 20 gwei)
+                                                                                                                                            
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/broadcast/MineRUSDT.s.sol/677/run-latest.json
+
+Sensitive values saved to: /home/dominic/Documents/dev/botchain/mavoSwap/mavoSwap-contract/cache/MineRUSDT.s.sol/677/run-latest.json
+
+dominic@emel:~/Documents/dev/botchain/mavoSwap/mavoSwap-contract (main *)$ 
+
+

@@ -15,40 +15,40 @@ forge test test/MultiTokenFaucetTest.sol:MultiTokenFaucetTest
 
 # 1. Deploy 3 tokens
 forge script script/DeployTokens.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 
 # 2. Mine the salt first (no broadcast, just logs)
-forge script script/MineRHYPE.s.sol \
+forge script script/MineRBOT.s.sol \
   --sig "mine()" \
-  --rpc-url elysium_testnet \
-  --account myWallet
+  --rpc-url botchain_mainnet \
+  --account botchain1
 
 
 # 3. Once you have the salt, set it and deploy
-echo "RHYPE_SALT=0x000000000000000000000000000000000000000000000000000000000000003b" >> .env
-forge script script/MineRHYPE.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+echo "RBOT_SALT=0x0000000000000000000000000000000000000000000000000000000000000059" >> .env
+forge script script/MineRBOT.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
   # 2. Mine the salt first (no broadcast, just logs)
-forge script script/MineRUSDC.s.sol \
+forge script script/MineRUSDT.s.sol \
   --sig "mine()" \
-  --rpc-url elysium_testnet \
-  --account myWallet
+  --rpc-url botchain_mainnet \
+  --account botchain1
 
 
 # 3. Once you have the salt, set it and deploy
-echo "RUSDC_SALT=0x0000000000000000000000000000000000000000000000000000000000000132" >> .env
-forge script script/MineRUSDC.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+echo "RUSDT_SALT=0x000000000000000000000000000000000000000000000000000000000000009d" >> .env
+forge script script/MineRUSDT.s.sol \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 
@@ -56,9 +56,9 @@ forge script script/MineRUSDC.s.sol \
 
 // DEPLOY POOLMANAGER
 forge script script/DeployPM.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 
@@ -68,7 +68,7 @@ forge verify-contract \
   --chain-id 5042002 \
   --verifier blockscout \
   --verifier-url https://testnet.arcscan.app/api \
-  --constructor-args $(cast abi-encode "constructor(address)" 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9) \
+  --constructor-args $(cast abi-encode "constructor(address)" 0x198adc951818792BeBC45368391C93Fabe8F2a13) \
   --watch \
   0xC8d4D8fd9121D92ba790A70a60c07143A2C0Cd98 \
   lib/v4-hooks-public/lib/v4-periphery/lib/v4-core/src/PoolManager.sol:PoolManager
@@ -76,9 +76,9 @@ forge verify-contract \
 
 // DEPLOY QUOTER
 forge script script/DeployQuoter.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 
@@ -97,9 +97,9 @@ forge verify-contract \
 
 // DEPLOY PERMIT2
 forge script script/DeployPermit2.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 
@@ -116,9 +116,9 @@ forge verify-contract \
 
 // DEPLOY POSITIONMANAGER
 forge script script/DeployPositionManager.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 0xae44E6C67c2Bd22512727009C20Eba2F8bcF95b0
@@ -134,9 +134,9 @@ forge verify-contract \
 
 // DEPLOY STATEVIEW
 forge script script/DeployStateView.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 
@@ -154,9 +154,9 @@ forge verify-contract \
 
 // DEPLOY UNIVERSALROUTER
 forge script script/DeployUniversalRouter.s.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 
@@ -164,9 +164,9 @@ Contract Address:
 
 // DEPLOY MULTITOKENFAUCET
 forge script script/DeployMultiTokenFaucet.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 
 Contract Address: 
@@ -174,8 +174,8 @@ Contract Address:
 
 // RUN ADMINFAUCET
 forge script script/AdminFaucet.sol \
-  --rpc-url elysium_testnet \
-  --account myWallet \
-  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --rpc-url botchain_mainnet \
+  --account botchain1 \
+  --sender 0x198adc951818792BeBC45368391C93Fabe8F2a13 \
   --broadcast
 

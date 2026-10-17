@@ -1,4 +1,18 @@
-export const SUBGRAPH_ENDPOINT = "https://api.studio.thegraph.com/query/1749160/mlswap-subgraph-mainnet/version/latest";
+export const SUBGRAPH_ENDPOINTS: Record<number, string> = {
+  // Elysium Testnet (99801)
+  99801: import.meta.env.VITE_ELYSIUM_SUBGRAPH_URL || "https://api.studio.thegraph.com/query/1749160/mlswap-subgraph-mainnet/version/latest",
+  // BotChain Mainnet (677)
+  677: import.meta.env.VITE_BOTCHAIN_SUBGRAPH_URL || import.meta.env.VITE_SUBGRAPH_URL_677 || "https://api.studio.thegraph.com/query/1749160/mlswap-subgraph-mainnet/version/latest",
+};
+
+export const SUBGRAPH_ENDPOINT = SUBGRAPH_ENDPOINTS[677] || "https://api.studio.thegraph.com/query/1749160/mlswap-subgraph-mainnet/version/latest";
+
+export function getSubgraphEndpoint(chainId?: number): string {
+  if (chainId && SUBGRAPH_ENDPOINTS[chainId]) {
+    return SUBGRAPH_ENDPOINTS[chainId];
+  }
+  return SUBGRAPH_ENDPOINTS[677] || SUBGRAPH_ENDPOINT;
+}
 
 // Global Data Queries
 export const GET_GLOBAL_DATA = `
@@ -375,8 +389,12 @@ export const GET_GLOBAL_MODIFY_LIQUIDITIES = `
 `;
 
 // Example of a generalized fetch function if they aren't using a GraphQL client
-export async function fetchSubgraph<T>(query: string, variables: Record<string, any> = {}): Promise<T> {
-  const response = await fetch(SUBGRAPH_ENDPOINT, {
+export async function fetchSubgraph<T>(query: string, variables: Record<string, any> = {}, endpointOrChainId?: string | number): Promise<T> {
+  const endpoint = typeof endpointOrChainId === 'number'
+    ? getSubgraphEndpoint(endpointOrChainId)
+    : (endpointOrChainId || SUBGRAPH_ENDPOINT);
+
+  const response = await fetch(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

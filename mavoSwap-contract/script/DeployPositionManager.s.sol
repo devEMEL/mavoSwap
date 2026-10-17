@@ -17,9 +17,8 @@ contract DeployPositionManager is Script {
         // Already deployed contracts
         address poolManagerAddr = vm.envAddress("POOLMANAGER_ADDRESS");
         address permit2Addr = vm.envAddress("PERMIT2_ADDRESS");
-        address hypeAddr = vm.envAddress("HYPE"); // address(0)
-        // address wethAddr = vm.envAddress("WETH_ADDRESS");
-        // address descriptorAddr = vm.envAddress("POSITION_DESCRIPTOR");
+        address wethAddr = vm.envAddress("WETH_ADDRESS");
+        address descriptorAddr = vm.envAddress("POSITION_DESCRIPTOR");
 
         console.log("PoolManager:", poolManagerAddr);
         console.log("Permit2:", permit2Addr);
@@ -27,17 +26,17 @@ contract DeployPositionManager is Script {
         vm.startBroadcast();
 
         // 1. Deploy WETH9
-        WETH weth = new WETH();
-        console.log("WETH deployed at:", address(weth));
+        // WETH weth = new WETH();
+        // console.log("WETH deployed at:", address(weth));
 
         // 2. Deploy PositionDescriptor
-        bytes32 nativeCurrencyLabel = bytes32("HYPE");
-        PositionDescriptor descriptor = new PositionDescriptor(
-            IPoolManager(poolManagerAddr),
-            hypeAddr,
-            nativeCurrencyLabel
-        );
-        console.log("PositionDescriptor deployed at:", address(descriptor));
+        // bytes32 nativeCurrencyLabel = bytes32("BOT");
+        // PositionDescriptor descriptor = new PositionDescriptor(
+        //     IPoolManager(poolManagerAddr),
+        //     address(0),
+        //     nativeCurrencyLabel
+        // );
+        // console.log("PositionDescriptor deployed at:", address(descriptor));
 
         // 3. Deploy PositionManager
         uint256 unsubscribeGasLimit = 100_000;
@@ -45,11 +44,11 @@ contract DeployPositionManager is Script {
             IPoolManager(poolManagerAddr),
             IAllowanceTransfer(permit2Addr),
             unsubscribeGasLimit,
-            // IPositionDescriptor(descriptorAddr),
-            // IWETH9(wethAddr) ,
+            IPositionDescriptor(descriptorAddr),
+            IWETH9(wethAddr)
 
-            IPositionDescriptor(address(descriptor)),
-            IWETH9(address(weth))
+            // IPositionDescriptor(address(descriptor)),
+            // IWETH9(address(weth))
             
             
         );
@@ -58,3 +57,4 @@ contract DeployPositionManager is Script {
         vm.stopBroadcast();
     }
 }
+
