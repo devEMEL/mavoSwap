@@ -1,0 +1,181 @@
+
+REDEPLOY ALL CONTRACTS USING UNIVERSALROUTER dependencies
+
+forge remappings > remappings.txt
+
+
+@uniswap/v4-periphery/=dependencies/universal-router/lib/v4-periphery/
+use this for universal router deployment
+
+forge install OpenZeppelin/openzeppelin-contracts --no-git --shallow
+forge install Uniswap/v4-hooks-public --no-git --shallow
+forge install Uniswap/universal-router
+
+forge test test/MultiTokenFaucetTest.sol:MultiTokenFaucetTest
+
+# 1. Deploy 3 tokens
+forge script script/DeployTokens.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+
+# 2. Mine the salt first (no broadcast, just logs)
+forge script script/MineRHYPE.s.sol \
+  --sig "mine()" \
+  --rpc-url elysium_testnet \
+  --account myWallet
+
+
+# 3. Once you have the salt, set it and deploy
+echo "RHYPE_SALT=0x000000000000000000000000000000000000000000000000000000000000003b" >> .env
+forge script script/MineRHYPE.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+  # 2. Mine the salt first (no broadcast, just logs)
+forge script script/MineRUSDC.s.sol \
+  --sig "mine()" \
+  --rpc-url elysium_testnet \
+  --account myWallet
+
+
+# 3. Once you have the salt, set it and deploy
+echo "RUSDC_SALT=0x0000000000000000000000000000000000000000000000000000000000000132" >> .env
+forge script script/MineRUSDC.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+
+
+
+// DEPLOY POOLMANAGER
+forge script script/DeployPM.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 
+
+// verify contracts
+forge verify-contract \
+  --chain-id 5042002 \
+  --verifier blockscout \
+  --verifier-url https://testnet.arcscan.app/api \
+  --constructor-args $(cast abi-encode "constructor(address)" 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9) \
+  --watch \
+  0xC8d4D8fd9121D92ba790A70a60c07143A2C0Cd98 \
+  lib/v4-hooks-public/lib/v4-periphery/lib/v4-core/src/PoolManager.sol:PoolManager
+
+
+// DEPLOY QUOTER
+forge script script/DeployQuoter.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 
+
+// verify contracts
+forge verify-contract \
+  --chain-id 5042002 \
+  --verifier blockscout \
+  --verifier-url https://testnet.arcscan.app/api \
+  --constructor-args $(cast abi-encode "constructor(address)" 0xC8d4D8fd9121D92ba790A70a60c07143A2C0Cd98) \
+  --watch \
+  0xA4486183f478315f2d5635Fdb4eD37D4841eC904 \
+  lib/v4-hooks-public/lib/v4-periphery/src/lens/V4Quoter.sol:V4Quoter
+// try to verify quoter again
+
+
+// DEPLOY PERMIT2
+forge script script/DeployPermit2.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 
+
+// verify contracts
+forge verify-contract \
+  --chain-id 5042002 \
+  --verifier blockscout \
+  --verifier-url https://testnet.arcscan.app/api \
+  --watch \
+  0xC733B042D7f7785af5606012831705797A7285f1 \
+  lib/v4-hooks-public/lib/v4-periphery/lib/permit2/src/Permit2.sol:Permit2
+
+
+// DEPLOY POSITIONMANAGER
+forge script script/DeployPositionManager.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 0xae44E6C67c2Bd22512727009C20Eba2F8bcF95b0
+// verify contracts (include --constructor-args)
+forge verify-contract \
+  --chain-id 5042002 \
+  --verifier blockscout \
+  --verifier-url https://testnet.arcscan.app/api \
+  --watch \
+  0xae44E6C67c2Bd22512727009C20Eba2F8bcF95b0 \
+  lib/v4-hooks-public/lib/v4-periphery/src/PositionManager.sol:PositionManager
+
+
+// DEPLOY STATEVIEW
+forge script script/DeployStateView.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 
+
+// verify contracts
+forge verify-contract \
+  --chain-id 5042002 \
+  --verifier blockscout \
+  --verifier-url https://testnet.arcscan.app/api \
+  --constructor-args $(cast abi-encode "constructor(address)" 0xC8d4D8fd9121D92ba790A70a60c07143A2C0Cd98) \
+  --watch \
+  0x289168d534c9cC5639537653Ddcb418e22c8ee59 \
+  lib/v4-hooks-public/lib/v4-periphery/src/lens/StateView.sol:StateView
+
+
+// DEPLOY UNIVERSALROUTER
+forge script script/DeployUniversalRouter.s.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 
+
+
+// DEPLOY MULTITOKENFAUCET
+forge script script/DeployMultiTokenFaucet.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+
+Contract Address: 
+
+
+// RUN ADMINFAUCET
+forge script script/AdminFaucet.sol \
+  --rpc-url elysium_testnet \
+  --account myWallet \
+  --sender 0x5Ac521f6814c2D09188A6838e7CDBfe7aEaC0cf9 \
+  --broadcast
+

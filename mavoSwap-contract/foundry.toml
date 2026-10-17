@@ -1,0 +1,25 @@
+[profile.default]
+bytecode_hash = "none"
+evm_version = "cancun"
+ffi = true
+fs_permissions = [{access = "read-write", path = ".forge-snapshots/"}]
+libs = ["lib", "dependencies"]
+out = "out"
+src = "src"
+
+via_ir = true
+optimizer = true
+optimizer_runs = 200
+
+
+
+[rpc_endpoints]
+elysium_testnet = "https://testnet-rpc.elysium.kinetiq.xyz"
+
+
+[lint]
+exclude_lints = ["screaming-snake-case-immutable", "screaming-snake-case-const"]
+lint_on_build = false
+
+# "https://rpc.testnet.arc.network"
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
