@@ -1,5 +1,5 @@
 import { createPublicClient, http, Address } from 'viem';
-import { elysiumTestnet } from './chains';
+import { botchainMainnet } from './chains';
 
 const ERC20_METADATA_ABI = [
   { inputs: [], name: 'name', outputs: [{ name: '', type: 'string' }], stateMutability: 'view', type: 'function' },
@@ -18,7 +18,7 @@ const TOKENURI_ABI = [
 ] as const;
 
 const publicClient = createPublicClient({
-  chain: elysiumTestnet,
+  chain: botchainMainnet,
   transport: http(),
 });
 

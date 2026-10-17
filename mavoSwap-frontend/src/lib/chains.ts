@@ -2,7 +2,7 @@ import { defineChain } from '@reown/appkit/networks';
 
 export const ELYSIUM_EXPLORER_URL = 'https://elysium.kinetiq.xyz/testnet-explorer';
 export const BOTCHAIN_EXPLORER_URL = 'https://scan.botchain.ai';
-export const BLOCK_EXPLORER_URL = ELYSIUM_EXPLORER_URL;
+export const BLOCK_EXPLORER_URL = BOTCHAIN_EXPLORER_URL;
 
 export const elysiumTestnet = defineChain({
   id: 99801,
@@ -54,7 +54,9 @@ export const botchainMainnet = defineChain({
   },
 });
 
-export const SUPPORTED_CHAINS = [botchainMainnet, elysiumTestnet] as const;
+// export const SUPPORTED_CHAINS = [botchainMainnet, elysiumTestnet] as const;
+export const SUPPORTED_CHAINS = [botchainMainnet] as const;
+
 export const DEFAULT_CHAIN = botchainMainnet;
 
 export function getChainById(chainId?: number) {
@@ -64,9 +66,6 @@ export function getChainById(chainId?: number) {
 }
 
 export function getExplorerUrl(chainId?: number): string {
-  if (chainId === botchainMainnet.id) return BOTCHAIN_EXPLORER_URL;
-  return ELYSIUM_EXPLORER_URL;
+  // if (chainId === elysiumTestnet.id) return ELYSIUM_EXPLORER_URL;
+  return BOTCHAIN_EXPLORER_URL;
 }
-
-// Backward compatibility alias
-export const arcMainnet = elysiumTestnet;

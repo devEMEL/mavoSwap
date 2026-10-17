@@ -24,8 +24,8 @@ export default function CreatePoolPage() {
 
   const [copiedA, setCopiedA] = useState(false);
   const [copiedB, setCopiedB] = useState(false);
-  const [tokenA, setTokenA] = useState<Token>(TOKENS[2]);
-  const [tokenB, setTokenB] = useState<Token>(TOKENS[3]);
+  const [tokenA, setTokenA] = useState<Token>(TOKENS[0]);
+  const [tokenB, setTokenB] = useState<Token>(TOKENS[1]);
 
   const { initializePool, isConfirming, toast, dismissToast } = usePool()
 

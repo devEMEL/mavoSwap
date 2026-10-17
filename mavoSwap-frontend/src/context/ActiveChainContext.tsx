@@ -8,6 +8,7 @@ import { getSubgraphEndpoint } from '@/lib/queries';
 export interface ActiveChainContextValue {
   chainId: number;
   activeChain: typeof botchainMainnet | typeof elysiumTestnet;
+  
   isSupported: boolean;
   contracts: ChainContracts;
   tokens: TokenConfig[];

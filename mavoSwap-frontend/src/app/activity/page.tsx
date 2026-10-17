@@ -8,6 +8,7 @@ import {
   GET_GLOBAL_MODIFY_LIQUIDITIES, 
   SUBGRAPH_ENDPOINT,
 } from '../../lib/queries';
+import { BLOCK_EXPLORER_URL } from '@/lib/chains';
 
 
 const GET_ALL_SWAPS = `
@@ -706,7 +707,7 @@ export default function ActivityPage() {
                   <div className="flex md:block justify-between items-center md:text-right">
                     <span className="md:hidden text-[11px] uppercase tracking-wider text-white/30 font-sans">Txn</span>
                     <a 
-                      href={`https://elysium.kinetiq.xyz/testnet-explorer/tx/${row.hash}`}
+                      href={`${BLOCK_EXPLORER_URL}/tx/${row.hash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono text-white/50 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 transition-all rounded-sm group/hash"

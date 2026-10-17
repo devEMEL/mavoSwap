@@ -13,6 +13,7 @@ import { useApproval } from '@/hooks/shared/useApproval';
 import { POSITION_MANAGER_ADDRESS } from '@/lib/constants';
 import { LiquidityAmounts, getSqrtRatioAtTick } from '@/utils/liquidityMath/liquidityAmounts';
 import { fetchSubgraph, GET_POSITION_OWNER, GET_POSITION_TRANSACTIONS } from '@/lib/queries';
+import { BLOCK_EXPLORER_URL } from '@/lib/chains';
 
 const getTokenLogo = (token: any) => {
   if (token.logo) return token.logo;
@@ -812,7 +813,7 @@ export default function PositionDetailsPage() {
                         </td>
                         <td className="py-4 text-right">
                           <a 
-                            href={`https://elysium.kinetiq.xyz/testnet-explorer/tx/${item.hash}`}
+                            href={`${BLOCK_EXPLORER_URL}/tx/${item.hash}`}
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="inline-flex items-center gap-1 text-primary hover:underline font-mono"

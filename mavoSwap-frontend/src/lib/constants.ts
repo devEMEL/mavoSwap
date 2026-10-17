@@ -52,14 +52,15 @@ export function getContracts(chainId?: number): ChainContracts {
   return CONTRACTS_BY_CHAIN[677] || CONTRACTS_BY_CHAIN[99801];
 }
 
-// Backward compatibility defaults (Elysium)
-export const POOLMANAGER_ADDRESS = CONTRACTS_BY_CHAIN[99801].poolManager;
-export const V4_QUOTER_ADDRESS = CONTRACTS_BY_CHAIN[99801].quoter;
-export const PERMIT2_ADDRESS = CONTRACTS_BY_CHAIN[99801].permit2;
-export const WETH_ADDRESS = CONTRACTS_BY_CHAIN[99801].weth!;
-export const POSITION_MANAGER_ADDRESS = CONTRACTS_BY_CHAIN[99801].positionManager;
-export const STATEVIEW_ADDRESS = CONTRACTS_BY_CHAIN[99801].stateView;
-export const UNIVERSALROUTER_ADDRESS = CONTRACTS_BY_CHAIN[99801].universalRouter;
+// Backward compatibility defaults (BotChain)
+export const POOLMANAGER_ADDRESS = CONTRACTS_BY_CHAIN[677].poolManager;
+export const V4_QUOTER_ADDRESS = CONTRACTS_BY_CHAIN[677].quoter;
+export const PERMIT2_ADDRESS = CONTRACTS_BY_CHAIN[677].permit2;
+export const WETH_ADDRESS = CONTRACTS_BY_CHAIN[677].weth!;
+export const POSITION_MANAGER_ADDRESS = CONTRACTS_BY_CHAIN[677].positionManager;
+export const STATEVIEW_ADDRESS = CONTRACTS_BY_CHAIN[677].stateView;
+export const UNIVERSALROUTER_ADDRESS = CONTRACTS_BY_CHAIN[677].universalRouter;
+export const POSITION_DESCRIPTOR_ADDRESS = CONTRACTS_BY_CHAIN[677].positionDescriptor;
 
 export const ACTIONS = {
   // --- Liquidity Actions (PositionManager) ---

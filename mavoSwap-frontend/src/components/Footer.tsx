@@ -13,7 +13,7 @@ export default function Footer() {
             </div>
             <p className="text-white/40 text-[13px] leading-relaxed max-w-sm">
               {/* A premium next-generation decentralized exchange built for speed, reliability, and visual clarity. */}
-              Uniswap v4 dex on Elysium
+              Uniswap v4 dex on BotChain & Elysium
             </p>
           </div>
 

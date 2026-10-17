@@ -94,6 +94,7 @@ export default function Navbar() {
   const { open } = useAppKit();
   const { address, isConnected } = useConnection();
   const { activeChain, chainId, supportedChains, switchNetwork, tokens } = useActiveChain();
+  const visibleChains = useMemo(() => supportedChains.filter((c) => c.id !== 99801), [supportedChains]);
   const { formattedBalance } = useTokenBalance({ token: tokens[0], address });
 
   const { disconnect } = useDisconnect();
@@ -154,26 +155,32 @@ export default function Navbar() {
 
           {/* Right: Network + Wallet */}
           <div className="flex items-center gap-2">
-            {/* Interactive Network Selector */}
+            {/* Network Display / Selector */}
             <div className="relative hidden sm:block">
               <button 
-                onClick={() => setNetworkDropdown(!networkDropdown)}
-                className="flex items-center gap-2 px-3.5 h-10 rounded-lg bg-[#161721] border border-[#232532] hover:bg-[#1a1c27] hover:border-[#2f3246] text-[#9fa3b2] transition-all cursor-pointer"
-                title="Switch Network"
+                onClick={() => visibleChains.length > 1 && setNetworkDropdown(!networkDropdown)}
+                className={`flex items-center gap-2 px-3.5 h-10 rounded-lg bg-[#161721] border border-[#232532] ${
+                  visibleChains.length > 1 
+                    ? 'hover:bg-[#1a1c27] hover:border-[#2f3246] cursor-pointer' 
+                    : 'cursor-default'
+                } text-[#9fa3b2] transition-all`}
+                title={visibleChains.length > 1 ? "Switch Network" : "Network"}
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]" />
                 <span className="text-[14px] font-mono tracking-tight">{activeChain.name}</span>
-                <ChevronDown size={14} className={`text-[#9fa3b2] transition-transform duration-200 ${networkDropdown ? 'rotate-180' : ''}`} />
+                {visibleChains.length > 1 && (
+                  <ChevronDown size={14} className={`text-[#9fa3b2] transition-transform duration-200 ${networkDropdown ? 'rotate-180' : ''}`} />
+                )}
               </button>
 
-              {networkDropdown && (
+              {visibleChains.length > 1 && networkDropdown && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setNetworkDropdown(false)} />
                   <div className="absolute right-0 top-full mt-2 w-56 bg-[#111111] border border-white/[0.08] rounded-lg shadow-2xl shadow-black/50 z-50 overflow-hidden py-1.5">
                     <div className="px-3.5 py-2 border-b border-white/[0.06] text-[11px] uppercase tracking-widest text-white/30">
                       Select Network
                     </div>
-                    {supportedChains.map((c) => {
+                    {visibleChains.map((c) => {
                       const isSelected = c.id === chainId;
                       return (
                         <button
@@ -312,28 +319,38 @@ export default function Navbar() {
           </nav>
 
           {/* Mobile Network Selector */}
-          <div className="mt-6 p-4 bg-white/[0.03] border border-white/[0.06] rounded-lg">
-            <p className="text-[11px] uppercase tracking-widest text-white/30 mb-2">Switch Network</p>
-            <div className="grid grid-cols-2 gap-2">
-              {supportedChains.map((c) => {
-                const isSelected = c.id === chainId;
-                return (
-                  <button
-                    key={c.id}
-                    onClick={() => switchNetwork(c.id)}
-                    className={`px-3 py-2 text-xs font-mono rounded flex items-center justify-center gap-1.5 border transition-all ${
-                      isSelected 
-                        ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' 
-                        : 'bg-white/[0.02] border-white/[0.08] text-white/50 hover:text-white'
-                    }`}
-                  >
-                    <div className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-emerald-400' : 'bg-white/20'}`} />
-                    <span>{c.name.replace(' Mainnet', '').replace(' Testnet', '')}</span>
-                  </button>
-                );
-              })}
+          {visibleChains.length > 1 ? (
+            <div className="mt-6 p-4 bg-white/[0.03] border border-white/[0.06] rounded-lg">
+              <p className="text-[11px] uppercase tracking-widest text-white/30 mb-2">Switch Network</p>
+              <div className="grid grid-cols-2 gap-2">
+                {visibleChains.map((c) => {
+                  const isSelected = c.id === chainId;
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => switchNetwork(c.id)}
+                      className={`px-3 py-2 text-xs font-mono rounded flex items-center justify-center gap-1.5 border transition-all ${
+                        isSelected 
+                          ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' 
+                          : 'bg-white/[0.02] border-white/[0.08] text-white/50 hover:text-white'
+                      }`}
+                    >
+                      <div className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-emerald-400' : 'bg-white/20'}`} />
+                      <span>{c.name.replace(' Mainnet', '').replace(' Testnet', '')}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="mt-6 p-4 bg-white/[0.03] border border-white/[0.06] rounded-lg flex items-center justify-between">
+              <p className="text-[11px] uppercase tracking-widest text-white/30">Network</p>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]" />
+                <span className="text-xs font-mono text-white/80">{activeChain.name}</span>
+              </div>
+            </div>
+          )}
 
           {/* Mobile Authentication Area */}
           <div className="mt-auto pt-6 border-t border-white/[0.06]">

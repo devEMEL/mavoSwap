@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Check, Loader2, AlertTriangle, ExternalLink } from 'lucide-react';
+import { BLOCK_EXPLORER_URL } from '@/lib/chains';
 
 export type ToastType = 'pending' | 'success' | 'error';
 
@@ -62,7 +63,7 @@ const Toast: React.FC<ToastProps> = ({ type, title, message, onClose, txHash }) 
 
             {type === 'success' && (
               <a 
-                href={`https://elysium.kinetiq.xyz/testnet-explorer/tx/${txHash}`} 
+                href={`${BLOCK_EXPLORER_URL}/tx/${txHash}`}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="mt-2 flex items-center gap-1 text-[12px]  uppercase tracking-widest text-white hover:brightness-125 transition-all w-fit"

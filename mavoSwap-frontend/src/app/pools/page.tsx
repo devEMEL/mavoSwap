@@ -3,7 +3,7 @@ import { Search, Plus } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { request } from 'graphql-request';
-import { GET_POOLS, GET_GLOBAL_DATA } from '../../lib/queries';
+import { GET_POOLS, GET_GLOBAL_DATA, SUBGRAPH_ENDPOINT } from '../../lib/queries';
 import { TOKENS } from '../../config/tokens';
 import { redis } from '../../lib/redis';
 import TokenImage from '../../components/TokenImage';
@@ -58,6 +58,7 @@ const PoolRowSkeleton = () => (
 
 export default function PoolsPage() {
   const navigate = useNavigate();
+  const { subgraphEndpoint } = useActiveChain();
   const [addressSearch, setAddressSearch] = useState('');
   const [pools, setPools] = useState<any[]>([]);
   const [globalData, setGlobalData] = useState<any>(null);
@@ -114,8 +115,8 @@ export default function PoolsPage() {
         redis.get<any[]>("metaswap:pools"),
         new Promise((_, reject) => setTimeout(() => reject(), 2000))
       ]).catch(() => null),
-      request(SUBGRAPH_ENDPOINT, GET_POOLS),
-      request(SUBGRAPH_ENDPOINT, GET_GLOBAL_DATA)
+      request(subgraphEndpoint || SUBGRAPH_ENDPOINT, GET_POOLS),
+      request(subgraphEndpoint || SUBGRAPH_ENDPOINT, GET_GLOBAL_DATA)
     ]) as [any, any, any]
 
     // Show cache instantly if subgraph is slow (optional)
@@ -135,7 +136,7 @@ export default function PoolsPage() {
   }
 }
     fetchData();
-  }, []);
+  }, [subgraphEndpoint]);
 
   const computePoolId = (poolKey: { currency0: string; currency1: string; fee: number; tickSpacing: number; hooks: string }) => {
     const encoded = ethers.AbiCoder.defaultAbiCoder().encode(

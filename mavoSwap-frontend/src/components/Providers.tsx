@@ -3,7 +3,7 @@ import { WagmiProvider, http } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createAppKit } from '@reown/appkit/react';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { botchainMainnet, elysiumTestnet } from '@/lib/chains';
+import { botchainMainnet } from '@/lib/chains';
 import { ActiveChainProvider } from '@/context/ActiveChainContext';
 
 const projectId =
@@ -14,11 +14,11 @@ const projectId =
 // Create Wagmi Adapter with BotChain Mainnet and Elysium Testnet
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  networks: [botchainMainnet, elysiumTestnet],
+  networks: [botchainMainnet],
   ssr: true,
   transports: {
     [botchainMainnet.id]: http(),
-    [elysiumTestnet.id]: http(),
+    // [elysiumTestnet.id]: http(),
   }
 });
 
@@ -28,7 +28,7 @@ export const config = wagmiAdapter.wagmiConfig;
 // Initialize AppKit with both networks
 createAppKit({
   adapters: [wagmiAdapter],
-  networks: [botchainMainnet, elysiumTestnet],
+  networks: [botchainMainnet],
   defaultNetwork: botchainMainnet,
   projectId,
   metadata: {
